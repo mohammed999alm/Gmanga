@@ -389,7 +389,10 @@ namespace Gmanga
         {
             picture = new PictureBox();
 
-            image = Image.FromFile(Path.Combine(chapterPath, pagesList[index]));
+            using (image = Image.FromFile(Path.Combine(chapterPath, pagesList[index]))) 
+            {
+                picture.Image = new Bitmap(image);
+            } 
 
             picture.SizeMode = PictureBoxSizeMode.StretchImage;
 
@@ -397,7 +400,7 @@ namespace Gmanga
 
             picture.Padding = new Padding(200, 10, 200, 10);
 
-            picture.Image = image;
+            
         }
 
 
@@ -482,9 +485,16 @@ namespace Gmanga
 
                 picture = new PictureBox();
 
-                image = Image.FromFile(Path.Combine(chapterPath, currentPageNumber + ".jpg"));
+                Size imageSize;
 
-                Size imageSize = image.Size;
+                using (image = Image.FromFile(Path.Combine(chapterPath, currentPageNumber + ".jpg"))) 
+                {
+                      picture.Image = new Bitmap(image);
+
+                    imageSize = image.Size;
+                }
+
+               
 
 
                 picture.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -494,7 +504,6 @@ namespace Gmanga
 
                 //picture.Image = Image.FromFile(Path.Combine(path, currentPageNumber + ".jpg"));
 
-                picture.Image = image;
 
                 picture.Padding = new Padding(200, 10, 200, 10);
 
@@ -523,6 +532,8 @@ namespace Gmanga
                 {
                     pagesList.Add(page);
                 }
+
+                reader.Close();
             } 
             catch (FileNotFoundException ex)
             {
@@ -557,7 +568,10 @@ namespace Gmanga
                     {
                         currentPageNumber = pageNumber.ToString();
 
-                        picture.Image = Image.FromFile(Path.Combine(chapterPath, currentPageNumber + ".jpg"));
+                        using (Image image = Image.FromFile(Path.Combine(chapterPath, currentPageNumber + ".jpg"))) 
+                        {
+                            picture.Image = new Bitmap(image);
+                        } 
                     }
 
                     else
@@ -623,8 +637,11 @@ namespace Gmanga
                        {
                            currentPageNumber = pageNumber.ToString();
 
-                           picture.Image = Image.FromFile(Path.Combine(chapterPath, currentPageNumber + ".jpg"));
-                       }
+                        using (Image image = Image.FromFile(Path.Combine(chapterPath, currentPageNumber + ".jpg")))
+                        {
+                            picture.Image = new Bitmap(image);
+                        }
+                    }
 
                        break;
 

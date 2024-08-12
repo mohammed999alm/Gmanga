@@ -116,45 +116,54 @@ namespace Gmanga
             {
                 if (Directory.Exists(folderPath))
                 {
-                    Directory.Move(folderPath, newFolderPath);
-
+                  
                     try
                     {
-                        chaptersSort.Add(short.Parse(folderName));
 
-                        chaptersSort.Sort();
-
-                        using (StreamWriter write = new StreamWriter(fileStoragePath))
+                        if (folderName != oldFileName)
                         {
-                            foreach (short chapter in chaptersSort)
+                            Directory.Move(folderPath, newFolderPath);
+
+
+                            chaptersSort.Add(short.Parse(folderName));
+
+                            chaptersSort.Sort();
+
+                            using (StreamWriter write = new StreamWriter(fileStoragePath))
                             {
-                                if (chapter.ToString() != oldFileName)
+                                foreach (short chapter in chaptersSort)
                                 {
-                                    write.WriteLine(chapter.ToString());
+                                    if (chapter.ToString() != oldFileName)
+                                    {
+                                        write.WriteLine(chapter.ToString());
+                                    }
+                                }
+                            }
+
+                        }
+
+                        if (imagesPath != null)
+                        {
+
+                            using (StreamWriter write = new StreamWriter(Path.Combine(newFolderPath, "pages.txt")))
+                            {
+                                foreach (string path in imagesPath)
+                                {
+                                    string fileName = Path.GetFileName(path);
+
+                                    string extention = Path.GetExtension(fileName);
+
+
+                                    string newFileName = $"{++index}{extention}";
+
+                                    write.WriteLine(newFileName);
+
+                                    string destinationPath = Path.Combine(newFolderPath, newFileName);
+
+                                    File.Copy(path, destinationPath, true);
                                 }
                             }
                         }
-
-
-                        using (StreamWriter write = new StreamWriter(Path.Combine(newFolderPath, "pages.txt")))
-                        {
-                            foreach (string path in imagesPath)
-                            {
-                                string fileName = Path.GetFileName(path);
-
-                                string extention = Path.GetExtension(fileName);
-
-
-                                string newFileName = $"{++index}{extention}";
-
-                                write.WriteLine(newFileName);
-
-                                string destinationPath = Path.Combine(newFolderPath, newFileName);
-
-                                File.Copy(path, destinationPath, true);
-                            }
-                        }
-
 
                         this.Close();
                     }
