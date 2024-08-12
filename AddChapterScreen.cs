@@ -28,9 +28,13 @@ namespace Gmanga
         List<string> imagesPath;
         private void AddChapterScreen_Load(object sender, EventArgs e)
         {
-            
+            //pictureBox1.Click += PictureBox1_Click;
         }
 
+        private void PictureBox1_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         public void showAddChapterScreen(string path, string title) 
         {
@@ -46,18 +50,21 @@ namespace Gmanga
             fileStoragePath = Path.Combine(mangaPagePath, dataFile);
 
 
+
+            chaptersList = new List<string>();
+
+            chaptersSort = new List<short>();
+
             if (File.Exists(fileStoragePath))
             {
                 try
                 {
+
+
                     using (StreamReader read = new StreamReader(fileStoragePath))
                     {
 
                         string line;
-
-                        chaptersList = new List<string>();
-
-                        chaptersSort = new List<short>();
 
                         while (!string.IsNullOrEmpty(line = read.ReadLine()))
                         {
@@ -89,9 +96,11 @@ namespace Gmanga
                 if (!Directory.Exists(folderPath))
                 {
                     Directory.CreateDirectory(folderPath);
+                }
 
-                    try
-                    {
+                try
+                {
+                        
                         chaptersSort.Add(short.Parse(folderName));
 
                         chaptersSort.Sort();
@@ -133,7 +142,7 @@ namespace Gmanga
                         MessageBox.Show(ex.Message);
                     }
 
-                }
+                
             }
         }
 

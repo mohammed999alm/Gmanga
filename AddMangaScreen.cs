@@ -79,6 +79,61 @@ namespace Gmanga
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void mangaTitleBox_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (mangaDataList == null) 
+            {
+                return;
+            }
+
+            if (mangaDataList.Contains(chapterNumberBox.Text.Trim()) || string.IsNullOrEmpty(chapterNumberBox.Text))
+            {
+                e.Cancel = true;
+
+                errorProvider1.SetError(chapterNumberBox, "This Folder Already Exist");
+            }
+
+            if (string.IsNullOrEmpty(chapterNumberBox.Text))
+            {
+                e.Cancel = true;
+
+                errorProvider1.SetError(chapterNumberBox, "Should Not Be Empty.");
+            }
+
+            else 
+            {
+                e.Cancel = false;
+
+                errorProvider1.SetError(chapterNumberBox, "");
+            }
+        }
+
+        private void pictureBox1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (pictureBox1.Image == null || pictureBox1.Image == Resources.add_icon)
+            {
+                e.Cancel = true;
+
+                errorProvider1.SetError(pictureBox1, "You Should Choose Image File To Manga Cover!");
+            }
+
+            else 
+            {
+                e.Cancel = false;
+                errorProvider1.SetError(pictureBox1, "");
+            }
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
+        {
+            loadImage();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
             if (mangaDataList == null)
             {
                 return;
@@ -133,7 +188,7 @@ namespace Gmanga
                     {
                         errorMessage = "Please select valid image file for the manga cover.";
                     }
-                    else 
+                    else
                     {
                         errorMessage = "The path for image file  might be invalid or the file could not be found";
                     }
@@ -144,51 +199,6 @@ namespace Gmanga
                 }
 
                 this.Close();
-            }  
-        }
-
-        private void mangaTitleBox_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (mangaDataList == null) 
-            {
-                return;
-            }
-
-            if (mangaDataList.Contains(chapterNumberBox.Text.Trim()) || string.IsNullOrEmpty(chapterNumberBox.Text))
-            {
-                e.Cancel = true;
-
-                errorProvider1.SetError(chapterNumberBox, "This Folder Already Exist");
-            }
-
-            if (string.IsNullOrEmpty(chapterNumberBox.Text))
-            {
-                e.Cancel = true;
-
-                errorProvider1.SetError(chapterNumberBox, "Should Not Be Empty.");
-            }
-
-            else 
-            {
-                e.Cancel = false;
-
-                errorProvider1.SetError(chapterNumberBox, "");
-            }
-        }
-
-        private void pictureBox1_Validating(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            if (pictureBox1.Image == null || pictureBox1.Image == Resources.add_icon)
-            {
-                e.Cancel = true;
-
-                errorProvider1.SetError(pictureBox1, "You Should Choose Image File To Manga Cover!");
-            }
-
-            else 
-            {
-                e.Cancel = false;
-                errorProvider1.SetError(pictureBox1, "");
             }
         }
     }

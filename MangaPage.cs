@@ -85,7 +85,12 @@ namespace Gmanga
         }
 
 
+        public static void  closeTheMangaPage() 
+        {
+            mangaPage.Close();
 
+            mangaPage.Dispose();
+        }
         private void setTableLayout()
         {
             chapterListTable.Visible = false;

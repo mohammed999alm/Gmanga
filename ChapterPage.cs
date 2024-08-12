@@ -191,6 +191,8 @@ namespace Gmanga
         {
             this.Close();
 
+            MangaPage.closeTheMangaPage();
+
             MainPageScreen.goBackToMainPage();
         }
 

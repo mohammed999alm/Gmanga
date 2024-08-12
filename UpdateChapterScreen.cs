@@ -70,6 +70,11 @@ namespace Gmanga
             fileStoragePath = Path.Combine(mangaPagePath, dataFile);
 
 
+            chaptersList = new List<string>();
+
+            chaptersSort = new List<short>();
+
+
             if (File.Exists(fileStoragePath))
             {
                 try
@@ -78,10 +83,6 @@ namespace Gmanga
                     {
 
                         string line;
-
-                        chaptersList = new List<string>();
-
-                        chaptersSort = new List<short>();
 
                         while (!string.IsNullOrEmpty(line = read.ReadLine()))
                         {
