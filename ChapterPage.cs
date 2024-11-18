@@ -551,6 +551,11 @@ namespace Gmanga
             loadChapter();
         }
 
+
+        private void rightArrow() 
+        {
+            
+        }
         private void nextButton_Clicked(object sender, EventArgs e) 
         {
             switch (pageMode.SelectedItem.ToString())

@@ -80,6 +80,8 @@ namespace Gmanga
                 while (!string.IsNullOrEmpty((line = reader.ReadLine())))
                 {
                     paths.Add(line);
+
+                    Debug.WriteLine(line);
                 }
 
 
